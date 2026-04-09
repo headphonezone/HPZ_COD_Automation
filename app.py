@@ -8,12 +8,15 @@ st.set_page_config(
 
 apply_global_style()
 
+# CLEAR PAGE STATES WHEN HOME LOADS
+for key in list(st.session_state.keys()):
+    if "processed" in key:
+        st.session_state[key] = False
+
 st.markdown(
     '<div class="main-title">📦 COD Reconciliation Portal</div>',
     unsafe_allow_html=True
 )
-
-st.write("")
 
 c1, c2 = st.columns(2)
 

@@ -9,59 +9,78 @@ def apply_global_style():
     st.markdown("""
     <style>
 
-    /* ---------- REMOVE STREAMLIT UI ---------- */
+    /* -------- REMOVE STREAMLIT DEFAULT UI -------- */
     header {visibility:hidden;}
     #MainMenu {visibility:hidden;}
     footer {visibility:hidden;}
 
-    [data-testid="stSidebar"] {display:none !important;}
-    [data-testid="collapsedControl"] {display:none !important;}
+    section[data-testid="stSidebar"]{
+        display:none !important;
+    }
 
-    /* ---------- FULL WIDTH ---------- */
+    div[data-testid="collapsedControl"]{
+        display:none !important;
+    }
+
+    div[data-testid="stToolbar"]{
+        display:none !important;
+    }
+
+    /* -------- PAGE LAYOUT -------- */
     .block-container{
-        max-width:100% !important;
+        max-width:1200px;
+        margin:auto;
         padding-top:2rem;
-        padding-left:3rem;
-        padding-right:3rem;
     }
 
-    /* ---------- DARK THEME ---------- */
+    /* -------- WHITE THEME -------- */
     .stApp{
-        background-color:#0E1117;
-        color:white;
+        background-color:#F6F8FA;
+        color:#111;
     }
 
-    /* ---------- TITLE ---------- */
+    /* -------- TITLE -------- */
     .main-title{
         text-align:center;
-        font-size:44px;
+        font-size:40px;
         font-weight:700;
         margin-bottom:30px;
-        color:white;
+        color:#111;
     }
 
-    /* ---------- BUTTON STYLE ---------- */
+    /* -------- BUTTON STYLE -------- */
     div.stButton > button{
         height:80px;
-        font-size:20px;
-        border-radius:12px;
-        background:#161B22;
-        border:1px solid #2a2f3a;
-        color:white;
-        transition:0.3s;
+        font-size:18px;
+        border-radius:10px;
+        background:white;
+        border:1px solid #d0d7de;
+        color:#111;
+        box-shadow:0px 2px 6px rgba(0,0,0,0.05);
+        transition:0.2s;
     }
 
     div.stButton > button:hover{
-        background:#238636;
+        background:#0969DA;
+        color:white;
         transform:scale(1.02);
     }
 
-    /* ---------- METRIC CARD ---------- */
+    /* -------- FILE UPLOADER -------- */
+    [data-testid="stFileUploader"]{
+        background:white;
+        padding:20px;
+        border-radius:10px;
+        border:1px solid #d0d7de;
+    }
+
+    /* -------- METRIC CARD -------- */
     div[data-testid="metric-container"]{
-        background:#161B22;
-        border-radius:12px;
+        background:white;
+        border-radius:10px;
         padding:15px;
-        border:1px solid #2a2f3a;
+        border:1px solid #d0d7de;
+        box-shadow:0px 2px 6px rgba(0,0,0,0.05);
     }
 
     </style>
@@ -74,13 +93,13 @@ def apply_global_style():
 
 def page_header(title):
 
-    left, center, right = st.columns([2,8,2])
+    col1, col2, col3 = st.columns([1,10,1])
 
-    with left:
-        if st.button("🏠 Home"):
+    with col1:
+        if st.button("🏠", key="home"):
             st.switch_page("app.py")
 
-    with center:
+    with col2:
         st.markdown(
             f'<div class="main-title">{title}</div>',
             unsafe_allow_html=True
