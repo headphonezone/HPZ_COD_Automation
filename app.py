@@ -3,6 +3,7 @@ from ui import apply_global_style
 
 st.set_page_config(
     page_title="COD X Recon",
+    page_icon="⚜️",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
