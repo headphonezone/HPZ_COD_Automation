@@ -1,8 +1,10 @@
 import streamlit as st
 import pandas as pd
+import base64
 from io import BytesIO
 from openpyxl.styles import PatternFill
 from ui import apply_global_style, page_header
+
 
 # -------------------------------------------------
 # PAGE
@@ -10,7 +12,8 @@ from ui import apply_global_style, page_header
 
 st.set_page_config(layout="wide",initial_sidebar_state="collapsed")
 apply_global_style()
-page_header("📦 Bluedart COD Reconciliation")
+page_header("Bluedart COD Reconciliation", "bluedart.png")
+
 
 # -------------------------------------------------
 # SESSION STATE

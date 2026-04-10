@@ -1,8 +1,14 @@
 import streamlit as st
+import base64
+from pathlib import Path
 
 # -------------------------------------------------
 # GLOBAL STYLE
 # -------------------------------------------------
+
+def get_base64_logo(logo):
+    with open(f"assets/{logo}", "rb") as img:
+        return base64.b64encode(img.read()).decode()
 
 def apply_global_style():
 
@@ -91,16 +97,28 @@ def apply_global_style():
 # PAGE HEADER
 # -------------------------------------------------
 
-def page_header(title):
+def page_header(title, logo):
 
-    col1, col2, col3 = st.columns([1,10,1])
+    col1, col2 = st.columns([1, 12])
 
+    # Home Button
     with col1:
         if st.button("🏠", key="home"):
             st.switch_page("app.py")
 
+    # Logo + Title aligned
     with col2:
         st.markdown(
-            f'<div class="main-title">{title}</div>',
+            f"""
+            <div style="
+                display:flex;
+                align-items:center;
+                gap:15px;
+            ">
+                <img src="data:image/png;base64,{get_base64_logo(logo)}"
+                     width="60">
+                <h1 style="margin:0;">{title}</h1>
+            </div>
+            """,
             unsafe_allow_html=True
         )
