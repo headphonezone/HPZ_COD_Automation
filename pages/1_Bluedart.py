@@ -12,7 +12,7 @@ from ui import apply_global_style, page_header
 
 st.set_page_config(layout="wide",initial_sidebar_state="collapsed")
 apply_global_style()
-page_header("Bluedart COD Reconciliation", "bluedart.png")
+page_header("📦 Bluedart COD Reconciliation")
 
 
 # -------------------------------------------------
