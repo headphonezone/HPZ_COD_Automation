@@ -5,9 +5,13 @@ from pathlib import Path
 # -------------------------------------------------
 # GLOBAL STYLE
 # -------------------------------------------------
-BASE_DIR = Path(__file__).resolve().parent
+ROOT_DIR = Path(__file__).resolve().parent
+
 def get_base64_logo(logo):
-    logo_path = BASE_DIR / "assets" / logo
+    logo_path = ROOT_DIR / "assets" / logo
+
+    if not logo_path.exists():
+        raise FileNotFoundError(f"Logo not found: {logo_path}")
 
     with open(logo_path, "rb") as img:
         return base64.b64encode(img.read()).decode()
