@@ -5,9 +5,11 @@ from pathlib import Path
 # -------------------------------------------------
 # GLOBAL STYLE
 # -------------------------------------------------
-
+BASE_DIR = Path(__file__).resolve().parent
 def get_base64_logo(logo):
-    with open(f"assets/{logo}", "rb") as img:
+    logo_path = BASE_DIR / "assets" / logo
+
+    with open(logo_path, "rb") as img:
         return base64.b64encode(img.read()).decode()
 
 def apply_global_style():
