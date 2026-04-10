@@ -5,15 +5,14 @@ from pathlib import Path
 # -------------------------------------------------
 # GLOBAL STYLE
 # -------------------------------------------------
-ROOT_DIR = Path(__file__).resolve().parents[0]
+ROOT_DIR = Path(__file__).resolve().parents[3]
 
 
 def get_base64_logo(logo):
 
-    # absolute path
     logo_path = ROOT_DIR / "assets" / logo
 
-    print("Searching logo at:", logo_path)
+    print("Looking for logo at:", logo_path)
 
     if not logo_path.exists():
         raise FileNotFoundError(f"Logo not found: {logo_path}")
