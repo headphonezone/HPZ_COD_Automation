@@ -2,7 +2,7 @@ import streamlit as st
 from ui import apply_global_style
 
 st.set_page_config(
-    page_title="⚖ COD X Recon",
+    page_title="COD X Recon",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
