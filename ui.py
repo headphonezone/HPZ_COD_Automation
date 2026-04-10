@@ -5,17 +5,22 @@ from pathlib import Path
 # -------------------------------------------------
 # GLOBAL STYLE
 # -------------------------------------------------
-ROOT_DIR = Path(__file__).resolve().parent
+ROOT_DIR = Path(__file__).resolve().parents[0]
+
 
 def get_base64_logo(logo):
+
+    # absolute path
     logo_path = ROOT_DIR / "assets" / logo
+
+    print("Searching logo at:", logo_path)
 
     if not logo_path.exists():
         raise FileNotFoundError(f"Logo not found: {logo_path}")
 
     with open(logo_path, "rb") as img:
         return base64.b64encode(img.read()).decode()
-
+    
 def apply_global_style():
 
     st.markdown("""
