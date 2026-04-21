@@ -6,30 +6,37 @@ from openpyxl.styles import PatternFill
 from ui import apply_global_style, page_header
 
 
+
 # -------------------------------------------------
 # PAGE
 # -------------------------------------------------
+
 
 st.set_page_config(layout="wide",initial_sidebar_state="collapsed")
 apply_global_style()
 page_header("📦 Bluedart COD Reconciliation")
 
 
+
 # -------------------------------------------------
 # SESSION STATE
 # -------------------------------------------------
 
+
 if "processed" not in st.session_state:
     st.session_state.processed = False
+
 
 # -------------------------------------------------
 # HELPERS
 # -------------------------------------------------
 
+
 def load_file(file):
     if file.name.endswith(".csv"):
         return pd.read_csv(file)
     return pd.read_excel(file)
+
 
 def clean_awb(col):
     return (
@@ -39,6 +46,7 @@ def clean_awb(col):
         .str.replace(r"\s+", "", regex=True)
         .str.strip()
     )
+
 
 # ---------- Excel Creator ----------
 def dataframe_to_excel(df, sheet="Sheet1"):
@@ -55,6 +63,7 @@ def dataframe_to_excel(df, sheet="Sheet1"):
 
     buffer.seek(0)
     return buffer
+
 
 # ---------- Lookup Highlight ----------
 def create_lookup_excel(df):
@@ -81,23 +90,30 @@ def create_lookup_excel(df):
     buffer.seek(0)
     return buffer
 
+
 # -------------------------------------------------
 # FILE UPLOAD
 # -------------------------------------------------
 
+
 st.header("Upload Files")
 
+
 col1, col2 = st.columns(2)
+
 
 with col1:
     bluedart_file = st.file_uploader("Upload Bluedart File")
 
+
 with col2:
     sales_file = st.file_uploader("Upload Sales File")
+
 
 # -------------------------------------------------
 # RUN RECONCILIATION
 # -------------------------------------------------
+
 
 if bluedart_file and sales_file:
 
@@ -129,6 +145,9 @@ if bluedart_file and sales_file:
             }, inplace=True)
 
             bd["AWB"] = clean_awb(bd["AWB"])
+
+            # ✅ FIX: Remove footer/separator/blank rows — keep only valid numeric AWBs
+            bd = bd[bd["AWB"].str.match(r"^\d+$")].reset_index(drop=True)
 
             sales.rename(columns={"AWB num": "AWB"}, inplace=True)
             sales["AWB"] = clean_awb(sales["AWB"])
@@ -222,9 +241,11 @@ if bluedart_file and sales_file:
         st.session_state.matched_count = len(matched)
         st.session_state.unmatched_count = len(unmatched)
 
+
 # -------------------------------------------------
 # RESULTS + COUNTS + DOWNLOADS
 # -------------------------------------------------
+
 
 if st.session_state.processed:
 
